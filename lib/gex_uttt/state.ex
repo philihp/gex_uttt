@@ -63,7 +63,7 @@ defmodule GexUttt.State do
     %State{
       src_state
       | board: dst_board,
-        active_board: unless(Substate.winner(elem(dst_board, spot)), do: spot),
+        active_board: unless(Substate.terminal?(elem(dst_board, spot)), do: spot),
         active_player: rem(src_state.active_player + 1, 2)
     }
   end

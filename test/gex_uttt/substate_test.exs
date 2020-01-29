@@ -68,4 +68,24 @@ defmodule GexUttt.SubstateTest do
       assert Substate.actions(s) == []
     end
   end
+  
+  describe "#terminal?" do
+    test "board with all slots taken is terminal" do
+      s = %Substate{board: {1,0,1,0,1,0,1,1,0}}
+      assert Substate.winner(s) == 1
+      assert Substate.terminal?(s) == true
+    end
+    
+    test "board with some slots taken but no winner is not terminal" do
+      s = %Substate{board: {1,1,0,0,0,1,1,1,0}}
+      assert Substate.winner(s) == nil
+      assert Substate.terminal?(s) == true
+    end
+    
+    test "board with some slots taken and there is a winner is terminal" do
+      s = %Substate{board: {0, 0, nil,1, 1, 1, nil, nil, nil}}
+      assert Substate.winner(s) == 1
+      assert Substate.terminal?(s) == true
+    end
+  end
 end
